@@ -44,7 +44,7 @@ request.on('error', error => {
 })
 
 request.end()
-  
+res.sendStatus(200);  
 })
 
 

@@ -22,15 +22,18 @@ for (const index in orderDetailsArray) {
 }
 
 let urlToMakeCall = process.env.InvoicesSenderAddress
-console.log(`/Sender/Send?invoice=${urlToMakeCall}`)
+
+let hostAndPort = urlToMakeCall.split(":");
+
 const options = {
-  hostname: `${urlToMakeCall}`,
+  hostname: hostAndPort[0],
+  port: hostAndPort[1],
   path: `/Sender/Send?invoice=${invoice}`,
   method: 'POST'
 }
 
 const request = https.request(options, res => {
-  console.log(`statusCode: ${res.statusCode}`)
+  console.log(`statusCode: ${res}`)
   res.on('data', d => {
     process.stdout.write(d)
   })

@@ -1,0 +1,10 @@
+{
+"host": "51.103.82.86",
+"port": 42734,
+"webPort": 42735,
+"solution": "invoice_nodejs",
+"application": "invoice_nodejs",
+"mode": "crash",
+"files": "**/*.js",
+"apm": true
+}

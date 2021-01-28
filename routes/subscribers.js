@@ -3,10 +3,9 @@ const router = express.Router()
 const https = require('https')
 
 router.post('/buildInvoice', (req, res) => {
-console.log(req.body.OrderId)
 let invoice = ''
 let orderDetailsArray = req.body.OrderDetails
-console.log(orderDetailsArray)
+
 for (const index in orderDetailsArray) {  
 
   let orderDetails = orderDetailsArray[index]
@@ -22,26 +21,21 @@ for (const index in orderDetailsArray) {
 
 }
 
-console.log(invoice)
-
+let urlToMakeCall = process.env.InvoicesSenderAddress
+console.log(`/Sender/Send?invoice=${urlToMakeCall}`)
 const options = {
-  hostname: 'whatever.com',
-  port: 443,
-  path: '/todos',
-  method: 'GET'
+  hostname: `${urlToMakeCall}`,
+  path: `/Sender/Send?invoice=${invoice}`,
+  method: 'POST'
 }
 
 const request = https.request(options, res => {
   console.log(`statusCode: ${res.statusCode}`)
-
   res.on('data', d => {
     process.stdout.write(d)
   })
 })
 
-request.on('error', error => {
-  console.error(error)
-})
 
 request.end()
 res.sendStatus(200);  
